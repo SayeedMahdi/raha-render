@@ -70,6 +70,8 @@ const login = asyncHandler(async (req, res, next) => {
       isActive: admin.isActive,
       accessToken
     });
+
+  console.log(cookie("admin_token", refreshToken, options), "/n/n/n", req.cookies);
 });
 
 // @desc      Log admin out / clear cookie
