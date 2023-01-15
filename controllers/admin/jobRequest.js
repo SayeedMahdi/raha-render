@@ -9,20 +9,9 @@ const JobRequestController = {
      * @access  Public
      */
     getRequests: asyncHandler(async (req, res, next) => {
-        req.database = {
-            model: JobRequest,
-        };
+        const jobs = await JobRequest.find().sort({ createdAt: -1 })
 
-        if (req.query.hasOwnProperty("q") && req.query.q.length > 0) {
-            req.database.search = {
-                $or: [
-                    { fullName: { $regex: req.query["q"], $options: "i" } },
-                    { email: { $regex: req.query["q"], $options: "i" } },
-                ],
-            };
-        }
-
-        next();
+        res.json(jobs)
     }),
 
     /** 
@@ -35,7 +24,7 @@ const JobRequestController = {
             return next();
         }
 
-        const jobRequest = await JobRequest.findOne({ _id: id }).accessibleBy(user.ability);
+        const jobRequest = await JobRequest.findOne({ _id: id })
 
         if (!jobRequest) {
             res.status(400);

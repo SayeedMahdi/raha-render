@@ -59,7 +59,7 @@ function MulterError(message, field = null, code = 400) {
 util.inherits(MulterError, Error)
 
 function checkFileType(req, file, cb) {
-	const filetypes = /jpg|jpeg|png|mp4|m4a/
+	const filetypes = /jpg|jpeg|png|mp4|pdf|zip|.rar|m4a/
 	const extname = filetypes.test(path.extname(file.originalname).toLowerCase())
 	const mimetype = filetypes.test(file.mimetype)
 

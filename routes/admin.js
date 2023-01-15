@@ -17,8 +17,8 @@ import ServiceRequestController from "../controllers/admin/serviceRequest.js"
 /** Models **/
 import Admin from "../models/Admin.js"
 /** Middlewares **/
-// import advancedResults from "../middleware/advancedResults.js"
-import { authenticate } from "../middleware/authMiddleware.js"
+import advancedResults from "../middleware/advancedResults.js"
+import { authenticate, authorize } from "../middleware/authMiddleware.js"
 import imageResizer from "../utils/imageResizer.js"
 import limiter from "../utils/rateLimiting.js"
 import imgUploader from "../utils/imgUploader.js"
@@ -128,7 +128,7 @@ router.group([authenticate(Admin)], (router) => {
 
 	// Package Routes
 	router.group("/packages", (router) => {
-		router.get("/", PackageController.getPackages)
+		router.get("/", PackageController.getPackages, advancedResults)
 		router.get("/:id", PackageController.getPackage)
 		router.get(
 			"/categories-provinces",
@@ -146,7 +146,7 @@ router.group([authenticate(Admin)], (router) => {
 
 	// Category Routes
 	router.group("/categories", (router) => {
-		router.get("/", categoryController.getCategories)
+		router.get("/", categoryController.getCategories, advancedResults)
 		router.put(
 			"/:id/update-locals",
 			categoryValidation.updateLocal,
@@ -172,7 +172,7 @@ router.group([authenticate(Admin)], (router) => {
 
 	// Services Routes
 	router.group("/services", (router) => {
-		router.get("/", serviceController.getServices)
+		router.get("/", serviceController.getServices, advancedResults)
 		router.get("/icon-options", serviceController.getIconOptions)
 		router.get("/:id", serviceController.getService)
 		router.put("/:id/update-locals", serviceController.updateLocals)
@@ -202,7 +202,7 @@ router.group([authenticate(Admin)], (router) => {
 
 	//Contact Routes
 	router.group("/contact-us", (router) => {
-		router.get("/", ContactUsController.getContacts)
+		router.get("/", ContactUsController.getContacts, advancedResults)
 		router.put(
 			"/:id/change-status",
 			contactUsValidation.changeStatus,
@@ -226,7 +226,7 @@ router.group([authenticate(Admin)], (router) => {
 	// Ticket Routes
 	router.group("/ticket", (router) => {
 		router.get("/:id", TicketController.getMessages)
-		router.get("/", TicketController.getChats)
+		router.get("/", TicketController.getChats, advancedResults)
 		router.post(
 			"/:id",
 			imgUploader("image"),
@@ -246,7 +246,10 @@ router.group([authenticate(Admin)], (router) => {
 			JobRequestController.changeState
 		)
 
-		router.get("/service", ServiceRequestController.getRequests)
+		router.get(
+			"/service",
+			ServiceRequestController.getRequests,
+		)
 		router.get("/service/:id", ServiceRequestController.getRequest)
 		router.put(
 			"/service/:id",

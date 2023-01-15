@@ -1,8 +1,6 @@
 const authChecker = (subject, roll) => {
 	return (req, res, next) => {
-		if (req.user?.isSuperAdmin) {
-			next()
-		} else if (
+		if (
 			req.user.role.subject === subject &&
 			req.user.role.ability.includes(roll)
 		) {

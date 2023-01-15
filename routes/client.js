@@ -26,7 +26,7 @@ import serviceRequestValidation from "../middleware/validators/requests/serviceR
 // import serviceRequestValidation from "../middleware/validators/requests/serviceRequest";
 // Middlewares
 import { authenticate, isUserVerified } from "../middleware/authMiddleware.js"
-// import advancedResults from "../middleware/advancedResults.js"
+import advancedResults from "../middleware/advancedResults.js"
 import imgUploader from "../utils/imgUploader.js"
 import multiFileUploader from "../utils/multiFileUploader.js"
 // Models
@@ -145,7 +145,8 @@ router.group("/packages", (router) => {
 router.group("/request", (router) => {
 	router.post(
 		"job",
-		multiFileUploader("attachments"),
+		imgUploader("image"),
+		uploadToCloudinary,
 		jobRequestValidation.create,
 		JobRequestController.create
 	)
@@ -154,16 +155,16 @@ router.group("/request", (router) => {
 		serviceRequestValidation.create,
 		ServiceRequestController.create
 	)
-	router.get("services", ServiceRequestController.getServices)
+	router.get("services", ServiceRequestController.getServices, advancedResults)
 })
 
-router.get("/services", ServiceController.getServices)
+router.get("/services", ServiceController.getServices, advancedResults)
 router.post(
 	"/services/request",
 	serviceValidation.requestService,
 	ServiceController.requestService
 )
-router.get("/faq", FAQController.getFAQs)
+router.get("/faq", FAQController.getFAQs, advancedResults)
 router.post(
 	"contact-us",
 	contactUsValidation.create,

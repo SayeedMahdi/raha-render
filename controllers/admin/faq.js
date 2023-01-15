@@ -68,7 +68,6 @@ const FAQController = {
 					$set: {
 						question: body.question,
 						answer: body.answer,
-						category: body.category,
 					},
 				},
 				{ new: true }
@@ -111,7 +110,6 @@ const FAQController = {
 				$set: {
 					"question.en": body["question_en"],
 					"question.ps": body["question_ps"],
-					"answer.fa": body["answer_fa"],
 					"answer.ps": body["answer_ps"],
 					"answer.en": body["answer_en"],
 				},

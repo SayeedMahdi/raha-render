@@ -8,24 +8,11 @@ const PackageController = {
   // @route   GET /api/v1/admin/packages
   // @access  private
   getPackages: asyncHandler(async (req, res, next) => {
-    req.database = {
-      model: Package,
-      populate: [
-        { path: "category", select: "name slug _id" },
-      ]
-    };
+    const packages = await Package.find()
+      .populate('category', "name slug _id")
 
-    if (req.query.hasOwnProperty("q") && req.query.q.length > 0) {
-      req.database.search = {
-        $or: [
-          { 'name.fa': { $regex: req.query["q"], $options: "i" } },
-          { 'name.en': { $regex: req.query["q"], $options: "i" } },
-          { 'name.ps': { $regex: req.query["q"], $options: "i" } },
-        ],
-      };
-    }
+    res.json(packages)
 
-    next();
   }),
 
   // @desc      Get single package
