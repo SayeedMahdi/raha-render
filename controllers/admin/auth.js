@@ -55,6 +55,7 @@ const login = asyncHandler(async (req, res, next) => {
     sameSite: 'None', //cross-site cookie 
     maxAge: 7 * 24 * 60 * 60 * 1000 //cookie expiry: set to match rT
   };
+  console.log(res.cookie("admin_token", refreshToken, options), "/n/n/n",);
 
   res.status(200)
     .cookie("admin_token", refreshToken, options)
@@ -71,7 +72,6 @@ const login = asyncHandler(async (req, res, next) => {
       accessToken
     });
 
-  console.log(cookie("admin_token", refreshToken, options), "/n/n/n", req.cookies);
 });
 
 // @desc      Log admin out / clear cookie
@@ -79,6 +79,7 @@ const login = asyncHandler(async (req, res, next) => {
 // @access    Private
 const logout = (req, res) => {
   const cookies = req.cookies
+  console.log(req.cookies.admin_token);
   if (!cookies?.admin_token) return res.sendStatus(204) //No content
 
   res.clearCookie('admin_token', {
