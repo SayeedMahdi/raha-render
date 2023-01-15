@@ -43,9 +43,16 @@ const login = asyncHandler(async (req, res, next) => {
   const refreshToken = await admin.generateRefreshToken();
 
   const options = {
+    // httpOnly: true, //accessible only by web server 
+    // secure: process.env.NODE_ENV === "production", //https 
+    // SameSite: 'None', //cross-site cookie  
+    // maxAge: 7 * 24 * 60 * 60 * 1000 //cookie expiry: set to match rT
+
+
+
     httpOnly: true, //accessible only by web server 
-    secure: process.env.NODE_ENV === "production", //https 
-    SameSite: 'Lax', //cross-site cookie  
+    secure: true, //https
+    sameSite: 'None', //cross-site cookie 
     maxAge: 7 * 24 * 60 * 60 * 1000 //cookie expiry: set to match rT
   };
 
