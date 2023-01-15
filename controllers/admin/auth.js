@@ -43,15 +43,17 @@ const login = asyncHandler(async (req, res, next) => {
   const refreshToken = await admin.generateRefreshToken();
 
   const options = {
-    httpOnly: true, //accessible only by web server 
-    secure: process.env.NODE_ENV === "production", //https 
-    SameSite: 'Lux', //cross-site cookie  
-    maxAge: 7 * 24 * 60 * 60 * 1000 //cookie expiry: set to match rT
-
     // httpOnly: true, //accessible only by web server 
-    // secure: true, //https
-    // sameSite: 'None', //cross-site cookie 
+    // secure: process.env.NODE_ENV === "production", //https 
+    // SameSite: 'None', //cross-site cookie  
     // maxAge: 7 * 24 * 60 * 60 * 1000 //cookie expiry: set to match rT
+
+
+
+    httpOnly: true, //accessible only by web server 
+    secure: process.env.NODE_ENV === "production", //https
+    sameSite: 'None', //cross-site cookie 
+    maxAge: 7 * 24 * 60 * 60 * 1000 //cookie expiry: set to match rT
   };
 
   res.status(200)
@@ -76,13 +78,12 @@ const login = asyncHandler(async (req, res, next) => {
 // @access    Private
 const logout = (req, res) => {
   const cookies = req.cookies
-  console.log(req.cookies.admin_token);
   if (!cookies?.admin_token) return res.sendStatus(204) //No content
 
   res.clearCookie('admin_token', {
     httpOnly: true, //accessible only by web server 
-    secure: process.env.NODE_ENV === "production", //https 
-    SameSite: 'Lax', //cross-site cookie  
+    secure: process.env.NODE_ENV === "production", //https
+    sameSite: 'None', //cross-site cookie  
   })
 
   res.json({ message: 'Cookie cleared' })
