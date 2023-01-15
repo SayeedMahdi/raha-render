@@ -55,7 +55,6 @@ const login = asyncHandler(async (req, res, next) => {
     sameSite: 'None', //cross-site cookie 
     maxAge: 7 * 24 * 60 * 60 * 1000 //cookie expiry: set to match rT
   };
-  console.log(res.cookie("admin_token", refreshToken, options), "/n/n/n",);
 
   res.status(200)
     .cookie("admin_token", refreshToken, options)
