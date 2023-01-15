@@ -169,18 +169,16 @@ const PackageController = {
 
   // @desc    Delete package
   // @route   DELETE /api/v1/admin/packages/:id
-  // @access  Private && superAdmin
+  // @access  Private && superAdmin 
   deletePackage: asyncHandler(async ({ user, params: { id }, t }, res, next) => {
     if (!mongoose.Types.ObjectId.isValid(id)) return next();
 
-    const pack = await Package.findOne({ _id: id }).accessibleBy(user.ability);
+    const pack = await Package.findByIdAndDelete(id)
 
     if (!pack) {
       res.status(404);
       throw new Error(t("not-found", { ns: 'validations', key: t('package') }));
     }
-
-    await pack.delete(user._id);
 
     res.json({});
   }
