@@ -94,7 +94,7 @@ router.group([authenticate(Admin)], (router) => {
 			imgUploader("image"),
 			uploadToCloudinary,
 			blogValidation.create,
-			authChecker("Blog", "create"),
+			// authChecker("Blog", "create"),
 			BlogController.createBlog
 		)
 		// router.get("/categories", BlogController.getCategories)
@@ -131,7 +131,7 @@ router.group([authenticate(Admin)], (router) => {
 		router.get("/", PackageController.getPackages, advancedResults)
 		router.get("/:id", PackageController.getPackage)
 		router.get(
-			"/categories-provinces",
+			"/categories",
 			PackageController.getCategoriesAndProvinces
 		)
 		router.post("/", packageValidation.create, PackageController.createPackage)

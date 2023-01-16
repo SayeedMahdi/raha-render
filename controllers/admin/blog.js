@@ -116,15 +116,12 @@ const updateLocal = asyncHandler(async ({ body, params, t }, res) => {
 		{ _id: params.id },
 		{
 			$set: {
-				"title.fa": body["title-fa"],
-				"content.fa": body["content-fa"],
-				"excerpt.fa": body["excerpt-fa"],
-				"title.ps": body["title-ps"],
-				"content.ps": body["content-ps"],
-				"excerpt.ps": body["excerpt-ps"],
-				"title.en": body["title-en"],
-				"content.en": body["content-en"],
-				"excerpt.en": body["excerpt-en"],
+				"title.ps": body["title_ps"],
+				"content.ps": body["content_ps"],
+				"excerpt.ps": body["excerpt_ps"],
+				"title.en": body["title_en"],
+				"content.en": body["content_en"],
+				"excerpt.en": body["excerpt_en"],
 			},
 		},
 		{
