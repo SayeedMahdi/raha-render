@@ -6,6 +6,7 @@ const TicketController = {
     // @route   GET /api/v1/admin/ticket
     // @access  Private
     getChats: asyncHandler(async (req, res, next) => {
+        console.log(123);
         const { role: { name } } = await req.user.populate('role', 'name');
         let chats;
 
