@@ -83,13 +83,14 @@ const updateBlog = asyncHandler(
 			{ _id: params.id },
 			{
 				$set: {
-					...body,
 					updaterId: user.id,
-					// "title.fa": body["title"],
-					// "content.fa": body["content"],
-					// "excerpt.fa": body["excerpt"],
-					// slug: body.slug,
-					// status: body.status,
+					"title.fa": body["title"],
+					"content.fa": body["content"],
+					"excerpt.fa": body["excerpt"],
+					slug: body.slug,
+					status: body.status,
+					image: body.cloudinary?.secure_url || body.imagePath,
+					publicId: body?.cloudinary?.public_id || body.publicId
 				},
 			},
 			{
