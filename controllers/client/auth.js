@@ -50,8 +50,8 @@ const login = asyncHandler(async (req, res) => {
 
   const options = {
     httpOnly: true, //accessible only by web server 
-    secure: process.env.NODE_ENV === "production", //https 
-    SameSite: 'Lax', //cross-site cookie  
+    secure: process.env.NODE_ENV === "production", //https
+    sameSite: 'None', //cross-site cookie 
     maxAge: 7 * 24 * 60 * 60 * 1000 //cookie expiry: set to match rT
   };
 
@@ -143,9 +143,10 @@ const verifyEmail = asyncHandler(async (req, res) => {
   const refreshToken = await user.generateRefreshToken();
 
   const options = {
-    httpOnly: true,                    //accessible only by web server  
-    sameSite: 'None',                //cross-site cookie 
-    maxAge: 5 * 24 * 60 * 60 * 1000 //cookie expiry: set to match rT
+    httpOnly: true, //accessible only by web server 
+    secure: process.env.NODE_ENV === "production", //https
+    sameSite: 'None', //cross-site cookie 
+    maxAge: 7 * 24 * 60 * 60 * 1000 //cookie expiry: set to match rT
   };
 
   // Create secure cookie with refresh token 
@@ -240,8 +241,9 @@ const logout = (req, res) => {
 
   res.clearCookie('token', {
     httpOnly: true, //accessible only by web server 
-    secure: process.env.NODE_ENV === "production", //https 
-    SameSite: 'Lax', //cross-site cookie  
+    secure: process.env.NODE_ENV === "production", //https
+    sameSite: 'None', //cross-site cookie 
+    maxAge: 7 * 24 * 60 * 60 * 1000 //cookie expiry: set to match rT
   })
 
   res.json({ message: 'Cookie cleared' })

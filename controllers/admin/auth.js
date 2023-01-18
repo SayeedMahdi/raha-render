@@ -70,6 +70,7 @@ const login = asyncHandler(async (req, res, next) => {
 			publicId: admin.publicId,
 			gender: admin.gender,
 			superAdmin: admin.isSuperAdmin,
+			// role: admin?.role, 
 			isActive: admin.isActive,
 			accessToken
 		});

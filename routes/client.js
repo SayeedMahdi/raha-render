@@ -184,11 +184,13 @@ router.group("/ticket", [authenticate(Client), isUserVerified], (router) => {
 	router.post(
 		"/:id",
 		multiFileUploader("attachments"),
+		uploadToCloudinary,
 		TicketController.createMessage
 	)
 	router.put(
 		"/:id/message/:msgId",
 		multiFileUploader("attachments"),
+		uploadToCloudinary,
 		TicketController.updateMessage
 	)
 	router.post("/:id/message/:msgId/reply", TicketController.replyMessage)

@@ -44,6 +44,7 @@ import entertainmentValidation from "../middleware/validators/entertainment/ente
 //cloudinary
 import uploadToCloudinary from "../utils/uploadCloudinary.js"
 import authChecker from "../middleware/authorization.js"
+import multiFileUploader from "../utils/multiFileUploader.js"
 
 const router = new Router()
 
@@ -87,7 +88,7 @@ router.group([authenticate(Admin)], (router) => {
 			imgUploader("image"),
 			uploadToCloudinary,
 			adminValidation.create,
-			authChecker("Users", "create"),
+			// authChecker("Users", "create"),
 			AdminController.createAdmin
 		)
 		router.delete(
@@ -356,22 +357,38 @@ router.group([authenticate(Admin)], (router) => {
 	router.group("/ticket", (router) => {
 		router.get(
 			"/:id",
-			authChecker("Ticket", "read"),
+			// authChecker("chat", "read"),
 			TicketController.getMessages
 		)
-		router.get("/", authChecker("Ticket", "read"), TicketController.getChats)
+		router.get("/",
+			//  authChecker("chat", "read"),
+			TicketController.getChats)
 		router.post(
 			"/:id",
-			imgUploader("image"),
+			multiFileUploader("attachments"),
+			uploadToCloudinary,
 			ticketValidation.createMessage,
-			authChecker("Ticket", "create"),
+			// authChecker("chat", "create"),
 			TicketController.createMessage
 		)
 		router.put(
+			"/:id/message/:msgId",
+			multiFileUploader("attachments"),
+			uploadToCloudinary,
+			// authChecker("chat", "update"),
+			TicketController.updateMessage
+		)
+		router.put(
 			"/:id/close-chat",
-			authChecker("Ticket", "update"),
+			// authChecker("chat", "update"),
 			TicketController.closeChat
 		)
+		router.post("/:id/message/:msgId/reply",
+			// authChecker("chat", "create"), 
+			TicketController.replyMessage)
+		router.delete("/:id/message/:msgId",
+			// authChecker("chat", "delete"),
+			TicketController.deleteMessage)
 	})
 
 	// Requests

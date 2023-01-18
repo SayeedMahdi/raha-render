@@ -1,0 +1,364 @@
+[33mcommit 3122e4e47bd10b5fc7807d958808070d445d9fdd[m[33m ([m[1;36mHEAD -> [m[1;32mdevelopment[m[33m, [m[1;31morigin/development[m[33m)[m
+Merge: bb69616 45c3363
+Author: ManzoorWayar <softwareengineerwayar@gmail.com>
+Date:   Wed Jan 18 14:40:15 2023 +0430
+
+    add chat refactors design by mr.mahdi
+
+[33mcommit bb69616a197c76ce9235ab0a5688eba04e82d5e3[m
+Author: ManzoorWayar <softwareengineerwayar@gmail.com>
+Date:   Wed Jan 18 14:15:30 2023 +0430
+
+    refactor the authentication
+
+[33mcommit 45c336352b2fc0cee3fbd154ac8837a57fa27fca[m[33m ([m[1;31morigin/role-base[m[33m)[m
+Author: SayeedMahdi <sayeedmahdimousavi789@gmail.com>
+Date:   Wed Jan 18 14:14:39 2023 +0430
+
+    changes
+
+[33mcommit 04e8750908cc98e52ae8c3dd159f362a89ded1ad[m
+Merge: b5e43fc 1e40cc8
+Author: ManzoorWayar <softwareengineerwayar@gmail.com>
+Date:   Wed Jan 18 10:19:14 2023 +0430
+
+    Merge branch 'role-base' of https://github.com/ManzoorWayar/v2-raha-api into development
+
+[33mcommit b5e43fce8ec939bc325e0c4da516c56f2ed40322[m
+Author: ManzoorWayar <softwareengineerwayar@gmail.com>
+Date:   Wed Jan 18 10:18:16 2023 +0430
+
+    finish user sections
+
+[33mcommit 1e40cc8605225ebb9ba6249096e0129e2461bc7f[m
+Author: SayeedMahdi <sayeedmahdimousavi789@gmail.com>
+Date:   Wed Jan 18 10:18:15 2023 +0430
+
+    chat added
+
+[33mcommit c5f3d0b3607e10e6feb0bb48351fdf12b75c6e3d[m
+Merge: fa3af74 30ef9e6
+Author: ManzoorWayar <softwareengineerwayar@gmail.com>
+Date:   Tue Jan 17 12:25:19 2023 +0430
+
+    add user role
+
+[33mcommit 30ef9e6fcb3313ddd28946f79e5367aa69a7ed54[m
+Author: SayeedMahdi <sayeedmahdimousavi789@gmail.com>
+Date:   Tue Jan 17 12:15:15 2023 +0430
+
+    entertainments routes
+
+[33mcommit fa3af746f3392578f0ec6cbbc8924acf647c25e9[m
+Author: ManzoorWayar <softwareengineerwayar@gmail.com>
+Date:   Tue Jan 17 12:13:24 2023 +0430
+
+    add all source
+
+[33mcommit fdc04ba4faa28acb6db1c7f0582ec8e33bbbf798[m
+Author: SayeedMahdi <sayeedmahdimousavi789@gmail.com>
+Date:   Mon Jan 16 16:08:19 2023 +0430
+
+    all features of intertainmet finished
+
+[33mcommit 0a0bba76509a065320d3c97cf0d82f1e7e0449ad[m
+Author: SayeedMahdi <sayeedmahdimousavi789@gmail.com>
+Date:   Mon Jan 16 08:33:20 2023 +0430
+
+    remain the logic of dynamic role
+
+[33mcommit a51b5bf67721542fe3f413bb878db716e57c9422[m
+Author: SayeedMahdi <sayeedmahdimousavi789@gmail.com>
+Date:   Sun Jan 15 14:02:24 2023 +0430
+
+    all routes middle added
+
+[33mcommit 5b40b2ae3066abb5fe74f28dd0894e201a7a99e5[m
+Author: ManzoorWayar <softwareengineerwayar@gmail.com>
+Date:   Sun Jan 15 12:07:11 2023 +0430
+
+    work on jobs
+
+[33mcommit 04f5313513e9188636640ad788f9ee88de778fad[m
+Author: ManzoorWayar <softwareengineerwayar@gmail.com>
+Date:   Sun Jan 15 08:26:13 2023 +0430
+
+    comment helmet
+
+[33mcommit ac359fd7a7cff97c8a1086e738f48caad6366a40[m
+Author: ManzoorWayar <softwareengineerwayar@gmail.com>
+Date:   Sat Jan 14 17:41:09 2023 +0430
+
+    add populte to service business package
+
+[33mcommit 341e68e7c77294330c71977b1a1dfa23c5f3086c[m
+Merge: f2ee376 3da2a37
+Author: ManzoorWayar <softwareengineerwayar@gmail.com>
+Date:   Sat Jan 14 15:47:42 2023 +0430
+
+    Merge branch 'development' of https://github.com/ManzoorWayar/v2-raha-api into development
+
+[33mcommit f2ee37636e58490b016dec0389e142fc3d46382f[m
+Author: ManzoorWayar <softwareengineerwayar@gmail.com>
+Date:   Sat Jan 14 15:47:33 2023 +0430
+
+    fix the contact bugs
+
+[33mcommit a906d13cac4f256aea73c6cc26a24c4ff69d999d[m
+Author: ManzoorWayar <softwareengineerwayar@gmail.com>
+Date:   Sat Jan 14 15:47:11 2023 +0430
+
+    fix the contact bugs
+
+[33mcommit baff3799321d16dc897b6a18b60beec905ec92a0[m
+Author: SayeedMahdi <sayeedmahdimousavi789@gmail.com>
+Date:   Sat Jan 14 15:46:31 2023 +0430
+
+    advance result and authurization remove
+
+[33mcommit 3da2a3789513ee82751c3763ab3dc37eaabd2131[m
+Author: SayeedMahdi <sayeedmahdimousavi789@gmail.com>
+Date:   Sat Jan 14 15:15:55 2023 +0430
+
+    added the auth middle ware
+
+[33mcommit 2ce1c59937eb30c4da4f68bc54658139f18537da[m
+Author: SayeedMahdi <sayeedmahdimousavi789@gmail.com>
+Date:   Sat Jan 14 12:26:39 2023 +0430
+
+    ps is made
+
+[33mcommit 26dc1b6bd420522d92250b70b65986aab3c9bba7[m
+Author: SayeedMahdi <sayeedmahdimousavi789@gmail.com>
+Date:   Sat Jan 14 12:13:39 2023 +0430
+
+    added changes in user auth admin and faq
+
+[33mcommit 5821d018a472338cb9243784e70f2f7896b9cfdf[m
+Merge: 2ab513f 6597d31
+Author: SayeedMahdi <sayeedmahdimousavi789@gmail.com>
+Date:   Sat Jan 14 09:29:55 2023 +0430
+
+    Merge branch 'development' of https://github.com/ManzoorWayar/v2-raha-api into development
+
+[33mcommit 2ab513f8184e0ccb58647a59e065e9438e1c1d05[m
+Author: SayeedMahdi <sayeedmahdimousavi789@gmail.com>
+Date:   Sat Jan 14 09:29:43 2023 +0430
+
+    populate added in blog controller
+
+[33mcommit 6597d31d963935c39f872baa398fcaf995dc4588[m
+Author: ManzoorWayar <softwareengineerwayar@gmail.com>
+Date:   Sat Jan 14 09:07:29 2023 +0430
+
+    fix the buf of authentication
+
+[33mcommit be203be96425dcd81d727d9b726bea00a6bfd0b1[m
+Author: ManzoorWayar <softwareengineerwayar@gmail.com>
+Date:   Thu Jan 12 16:10:02 2023 +0430
+
+    remove advanced result
+
+[33mcommit 7c0d6d136a554101135c6da51a332f1a4ac483ef[m
+Author: ManzoorWayar <softwareengineerwayar@gmail.com>
+Date:   Thu Jan 12 15:51:15 2023 +0430
+
+    remove advanced result
+
+[33mcommit b50512dfe71d0cd525e8f602aea82778f3dfbf88[m
+Merge: 3d45d75 dda8838
+Author: ManzoorWayar <softwareengineerwayar@gmail.com>
+Date:   Thu Jan 12 15:40:33 2023 +0430
+
+    Merge branch 'development' of https://github.com/ManzoorWayar/v2-raha-api into development
+
+[33mcommit dda8838d210cb384639a4cd978e19b21eef3b8dc[m
+Author: SayeedMahdi <sayeedmahdimousavi789@gmail.com>
+Date:   Thu Jan 12 15:39:37 2023 +0430
+
+    blog problem
+
+[33mcommit 3d45d757028b0e356b0f6919a2d813875345543c[m
+Author: ManzoorWayar <softwareengineerwayar@gmail.com>
+Date:   Thu Jan 12 15:33:43 2023 +0430
+
+    add public id
+
+[33mcommit a65d8367a0606de8aa3b9db09925027facc92bd1[m
+Author: SayeedMahdi <sayeedmahdimousavi789@gmail.com>
+Date:   Thu Jan 12 14:24:53 2023 +0430
+
+    auth changes
+
+[33mcommit b7fb358859ebbecf75a9cc42f3a2f38ead8027e6[m
+Merge: 0467475 f7d83b6
+Author: SayeedMahdi <sayeedmahdimousavi789@gmail.com>
+Date:   Thu Jan 12 14:20:21 2023 +0430
+
+    Merge branch 'development' of https://github.com/ManzoorWayar/v2-raha-api into development
+
+[33mcommit f7d83b6739223eea2267a208e0cf2d2d21d78d01[m
+Author: ManzoorWayar <softwareengineerwayar@gmail.com>
+Date:   Thu Jan 12 14:17:08 2023 +0430
+
+    refactir refrsh router
+
+[33mcommit 0467475fb97642b25af316985af17abbc5614b6b[m
+Author: SayeedMahdi <sayeedmahdimousavi789@gmail.com>
+Date:   Thu Jan 12 14:13:59 2023 +0430
+
+    client blogs"
+
+[33mcommit 2d7627418e8265a136aa4c3d6acb182797ef9dba[m
+Author: ManzoorWayar <softwareengineerwayar@gmail.com>
+Date:   Thu Jan 12 13:34:36 2023 +0430
+
+    debug auth
+
+[33mcommit 8d7813c5541e1a00bc2912fd0276f2d305e27824[m
+Author: ManzoorWayar <softwareengineerwayar@gmail.com>
+Date:   Thu Jan 12 13:27:23 2023 +0430
+
+    debug auth
+
+[33mcommit 1ea0a121b1ef85ec583572b726065ad4dfb34189[m
+Merge: 2183a42 f082fb6
+Author: ManzoorWayar <softwareengineerwayar@gmail.com>
+Date:   Thu Jan 12 12:13:41 2023 +0430
+
+    debug merge mahdi
+
+[33mcommit 2183a4293ec5e078c71fbbabfd5afdf39084315b[m
+Author: ManzoorWayar <softwareengineerwayar@gmail.com>
+Date:   Thu Jan 12 12:02:55 2023 +0430
+
+    debug users
+
+[33mcommit f082fb6857b0a8c2a99ea92b13948624510cd56a[m
+Author: SayeedMahdi <sayeedmahdimousavi789@gmail.com>
+Date:   Thu Jan 12 11:19:13 2023 +0430
+
+    blog changes on file upload
+
+[33mcommit b7524598c41eb429bbca3a69b5c70808acea9d9f[m
+Author: ManzoorWayar <softwareengineerwayar@gmail.com>
+Date:   Thu Jan 12 08:43:37 2023 +0430
+
+    change  and debug afg and contact
+
+[33mcommit 61c604fe40b618a00f188120eebf4b19d6f00fc8[m
+Author: SayeedMahdi <sayeedmahdimousavi789@gmail.com>
+Date:   Tue Jan 10 14:06:16 2023 +0430
+
+    removed the link
+
+[33mcommit 7a562a0a66eb87db070393058f317bd4b9e3ab52[m
+Author: SayeedMahdi <sayeedmahdimousavi789@gmail.com>
+Date:   Tue Jan 10 13:57:28 2023 +0430
+
+    added
+
+[33mcommit 81dbdd05533d536cafe70422e69d61a88fcabfa2[m
+Merge: 6a00af3 a0dd5ad
+Author: ManzoorWayar <softwareengineerwayar@gmail.com>
+Date:   Mon Jan 9 10:51:53 2023 +0430
+
+    Merge branch 'development' of https://github.com/ManzoorWayar/v2-raha-api into development
+
+[33mcommit 6a00af3e1365eb7db316f9230183329cd3be88c8[m
+Author: ManzoorWayar <softwareengineerwayar@gmail.com>
+Date:   Mon Jan 9 10:51:43 2023 +0430
+
+    asd
+
+[33mcommit a0dd5ad90c76aac55ce7d633e62091f43f35e069[m
+Author: SayeedMahdi <sayeedmahdimousavi789@gmail.com>
+Date:   Mon Jan 9 10:44:12 2023 +0430
+
+    translation some parts
+
+[33mcommit f9e13217381309df8e454660f9e26d841d348e80[m
+Merge: 7182dd9 bc01d69
+Author: SayeedMahdi <sayeedmahdimousavi789@gmail.com>
+Date:   Sun Jan 8 15:47:24 2023 +0430
+
+    general translation
+
+[33mcommit 7182dd9823944eff5cf1661de2c4004695444a88[m
+Author: SayeedMahdi <sayeedmahdimousavi789@gmail.com>
+Date:   Sun Jan 8 15:45:29 2023 +0430
+
+    general translation
+
+[33mcommit bc01d6992cefda6a82639642d4ad97dfd86cff2e[m
+Merge: e3e44d4 694d13c
+Author: ManzoorWayar <softwareengineerwayar@gmail.com>
+Date:   Sun Jan 8 15:28:54 2023 +0430
+
+    Merge branch 'development' of https://github.com/ManzoorWayar/v2-raha-api into development
+
+[33mcommit e3e44d481e10b5e1b20e765db979f431d8c414fb[m
+Author: ManzoorWayar <softwareengineerwayar@gmail.com>
+Date:   Sun Jan 8 15:28:45 2023 +0430
+
+    file and chat uploading
+
+[33mcommit 6fde3e7e25f21bf285284a76914980f0ef9aa684[m
+Author: ManzoorWayar <softwareengineerwayar@gmail.com>
+Date:   Wed Jan 4 15:47:24 2023 +0430
+
+    try admin chat
+
+[33mcommit 694d13cec2ba63bb9aaed68d0e58a0129ef7cf2f[m
+Author: SayeedMahdi <sayeedmahdimousavi789@gmail.com>
+Date:   Wed Jan 4 09:51:55 2023 +0430
+
+    some package added
+
+[33mcommit 52608a318b5357b0163b9329738a66d0d47f5a47[m
+Author: ManzoorWayar <softwareengineerwayar@gmail.com>
+Date:   Mon Jan 2 14:25:30 2023 +0430
+
+    working on voce calle
+
+[33mcommit 2845e4c3f2dcce6989ee985a0e163aae8ac2d9f6[m
+Author: ManzoorWayar <softwareengineerwayar@gmail.com>
+Date:   Sun Jan 1 15:53:01 2023 +0430
+
+    fix the reresh token and jwt token
+
+[33mcommit 463be162a74d196dc2c4ded3ed0e811a8a18fa94[m
+Author: ManzoorWayar <softwareengineerwayar@gmail.com>
+Date:   Thu Dec 29 14:28:36 2022 +0430
+
+    debug chat api get messaes
+
+[33mcommit 3ac8bfe509f08e4e5be26373eaead3d69eee822d[m
+Author: ManzoorWayar <softwareengineerwayar@gmail.com>
+Date:   Wed Dec 28 17:50:38 2022 +0430
+
+    add and upload some messags
+
+[33mcommit 289ebc2ababb9cc08e9418fa570414bd98a6a7a2[m
+Author: ManzoorWayar <softwareengineerwayar@gmail.com>
+Date:   Wed Dec 28 15:36:26 2022 +0430
+
+    uploaded an image
+
+[33mcommit 30d278b5a145c9019754b1a2591b5620d8d50172[m
+Author: ManzoorWayar <softwareengineerwayar@gmail.com>
+Date:   Wed Dec 28 11:56:43 2022 +0430
+
+    add chat fcuntionality
+
+[33mcommit 501472822b5badff2b2f99e77806d1095a7ff8b6[m
+Author: ManzoorWayar <softwareengineerwayar@gmail.com>
+Date:   Sun Dec 25 14:55:38 2022 +0430
+
+    working on comment
+
+[33mcommit 524c6e6b9747ead3d080de37e3001e5feb5cd222[m[33m ([m[1;31morigin/master[m[33m, [m[1;32mmaster[m[33m)[m
+Author: ManzoorWayar <softwareengineerwayar@gmail.com>
+Date:   Sun Dec 4 12:17:40 2022 +0430
+
+    create v2 raha-api
