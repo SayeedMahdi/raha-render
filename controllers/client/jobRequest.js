@@ -9,7 +9,7 @@ const JobRequestController = {
      */
     create: asyncHandler(async (req, res) => {
         const { body, file } = req;
-        console.log(body);
+
         const job = await JobRequest.create({
             ...body,
             attachments: file.path

@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken"
 import asyncHandler from "express-async-handler"
-import ability from "../config/roles/ability.js"
+// import ability from "../config/roles/ability.js"
 
 const authenticate = (Model) =>
 	asyncHandler(async (req, res, next) => {
@@ -38,21 +38,21 @@ const authenticate = (Model) =>
 		}
 	})
 
-const authorize = ({ user }, res, next) => {
-	if (user?.isSuperAdmin) {
-		user.ability = ability("manage", "all")
-	} else if (user?.role === "media") {
-		user.ability = ability("manage", "Blog")
-	} else if (user?.role === "sales") {
-		user.ability = ability("manage", "")
-	} else if (user?.role === "technical") {
-		user.ability = ability("manage", "")
-	} else {
-		res.status(401)
-		throw new Error("unauthorized access")
-	}
-	next()
-}
+// const authorize = ({ user }, res, next) => {
+// 	if (user?.isSuperAdmin) {
+// 		user.ability = ability("manage", "all")
+// 	} else if (user?.role === "media") {
+// 		user.ability = ability("manage", "Blog")
+// 	} else if (user?.role === "sales") {
+// 		user.ability = ability("manage", "")
+// 	} else if (user?.role === "technical") {
+// 		user.ability = ability("manage", "")
+// 	} else {
+// 		res.status(401)
+// 		throw new Error("unauthorized access")
+// 	}
+// 	next()
+// }
 
 const isUserVerified = (req, res, next) => {
 	if (!req.user.verifiedAt) {
@@ -60,4 +60,8 @@ const isUserVerified = (req, res, next) => {
 	}
 	next()
 }
-export { authenticate, authorize, isUserVerified }
+export {
+	authenticate,
+	// authorize
+	isUserVerified,
+}

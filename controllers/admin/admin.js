@@ -51,11 +51,13 @@ const AdminController = {
 		body.creatorId = user?.id
 		body.image = body.cloudinary.url
 		body.publicId = body.cloudinary.public_id
-		const newAdmin = {
-			...body,
-			role: { subject: body.subject, ability: body.ability },
+
+		const role = {
+			[body?.role]: body?.ability,
 		}
-		const admin = await Admin.create(newAdmin)
+		body.role = !body.isSuperAdmin ? role : { superAdmin: 'All' }
+
+		const admin = await Admin.create(body)
 
 		res.status(201).json(admin)
 	}),
@@ -68,9 +70,13 @@ const AdminController = {
 			if (!mongoose.Types.ObjectId.isValid(id)) return next()
 
 			body.updaterId = user.id
-			// body.image = file?.path || undefined;
 			body.image = body?.cloudinary?.secure_url || undefined
 			body.publicId = body?.cloudinary?.public_id
+
+			const role = {
+				[body?.role]: body?.ability,
+			}
+			body.role = !body.isSuperAdmin ? role : { superAdmin: 'All' }
 
 			const admin = await Admin.findOneAndUpdate({ _id: id }, body, {
 				new: true,
@@ -92,14 +98,12 @@ const AdminController = {
 	deleteAdmin: asyncHandler(async ({ user, params: { id }, t }, res, next) => {
 		if (!mongoose.Types.ObjectId.isValid(id)) return next()
 
-		const admin = await Admin.findOne({ _id: id }).accessibleBy(user.ability)
+		const admin = await Admin.findByIdAndDelete(id)
 
 		if (!admin) {
 			res.status(404)
 			throw new Error(t("not-found", { ns: "validations", key: t("admin") }))
 		}
-
-		await admin.delete(user._id)
 
 		res.status(200).json({})
 	}),

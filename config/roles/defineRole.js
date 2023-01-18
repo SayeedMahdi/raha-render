@@ -1,9 +1,6 @@
-import { defineAbility } from "@casl/ability";
+// import { defineAbility } from "@casl/ability";
 
-const defineRole = (privilage, model) =>
-  defineAbility((can) => can(privilage, model)).A;
+// const defineRole = (privilage, model) =>
+//   defineAbility((can) => can(privilage, model)).A;
 
-
-
-export default defineRole;
-
+// export default defineRole;

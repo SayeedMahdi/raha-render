@@ -95,7 +95,6 @@ const resizeImages = async (req, res, next) => {
     body.images = [];
 
     if (!file) {
-        console.log('no image');
         return next();
     }
 
@@ -103,7 +102,7 @@ const resizeImages = async (req, res, next) => {
         imageSizes.map(async size => {
             const newFilename = `${Date.now()}-${size?.label}${path.extname(file.originalname)}`;
             const imagePath = getUploadDir(newFilename);
-            console.log(body.images);
+
             await sharp(file?.buffer, { limitInputPixels: false })
                 .resize(size?.width)
                 .toFile(imagePath)

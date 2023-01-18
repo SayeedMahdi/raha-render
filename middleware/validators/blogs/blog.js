@@ -44,7 +44,16 @@ const createBlogSchema = checkSchema({
 	//       return Promise.resolve()
 	//     }
 	//   }
-	// }, 
+	// },
+	cloudinary: {
+		// escape: true,
+		// trim: true,
+		isEmpty: {
+			negated: true,
+			errorMessage: (_, { req }) =>
+				req.t("required", { ns: "validations", key: req.t("image") }),
+		},
+	},
 	excerpt: {
 		escape: true,
 		trim: true,

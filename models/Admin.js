@@ -2,7 +2,7 @@ import mongoose from "mongoose"
 import jwt from "jsonwebtoken"
 import bcrypt from "bcryptjs"
 import crypto from "crypto"
-import defineRole from "../config/roles/defineRole.js"
+// import defineRole from "../config/roles/defineRole.js"
 import speakeasy from "speakeasy"
 
 const AdminSchema = new mongoose.Schema(
@@ -41,14 +41,8 @@ const AdminSchema = new mongoose.Schema(
 			select: false,
 		},
 		role: {
-			ability: {
-				type: String,
-				required: [true, "Role ability is required"],
-			},
-			subject: {
-				type: String,
-				required: [true, "Subject is required"],
-			},
+			type: Object,
+			required: [true, "Role is required"],
 		},
 		auth_secret: {
 			type: Object,
@@ -147,12 +141,12 @@ AdminSchema.methods.getResetPasswordToken = function () {
 	return resetToken
 }
 
-AdminSchema.methods.getRoleAbilities = function () {
-	if (this.isSuperAdmin) return defineRole("manage", "all")
-	else if (this.role?.name === "media") return defineRole("manage", "Blog")
-	else if (this.role?.name === "sales") return defineRole("privilege ", "model")
-	else return []
-}
+// AdminSchema.methods.getRoleAbilities = function () {
+// 	if (this.isSuperAdmin) return defineRole("manage", "all")
+// 	else if (this.role?.name === "media") return defineRole("manage", "Blog")
+// 	else if (this.role?.name === "sales") return defineRole("privilege ", "model")
+// 	else return []
+// }
 
 const Admin = mongoose.model("Admin", AdminSchema)
 

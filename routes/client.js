@@ -13,6 +13,7 @@ import GraphController from "../controllers/client/graph.js"
 import ServiceRequestController from "../controllers/client/serviceRequest.js"
 import Entertainment from "../controllers/client/entertainment.js"
 import callCenter from "../webSocket/callCenter.js"
+
 // Validators
 import authValidation from "../middleware/validators/clients/auth.js"
 import profileValidation from "../middleware/validators/clients/profile.js"
@@ -26,7 +27,7 @@ import serviceRequestValidation from "../middleware/validators/requests/serviceR
 // import serviceRequestValidation from "../middleware/validators/requests/serviceRequest";
 // Middlewares
 import { authenticate, isUserVerified } from "../middleware/authMiddleware.js"
-import advancedResults from "../middleware/advancedResults.js"
+// import advancedResults from "../middleware/advancedResults.js"
 import imgUploader from "../utils/imgUploader.js"
 import multiFileUploader from "../utils/multiFileUploader.js"
 // Models
@@ -155,16 +156,16 @@ router.group("/request", (router) => {
 		serviceRequestValidation.create,
 		ServiceRequestController.create
 	)
-	router.get("services", ServiceRequestController.getServices, advancedResults)
+	router.get("services", ServiceRequestController.getServices)
 })
 
-router.get("/services", ServiceController.getServices, advancedResults)
+router.get("/services", ServiceController.getServices)
 router.post(
 	"/services/request",
 	serviceValidation.requestService,
 	ServiceController.requestService
 )
-router.get("/faq", FAQController.getFAQs, advancedResults)
+router.get("/faq", FAQController.getFAQs)
 router.post(
 	"contact-us",
 	contactUsValidation.create,
@@ -196,6 +197,7 @@ router.group("/ticket", [authenticate(Client), isUserVerified], (router) => {
 
 router.group("/entertainment", (router) => {
 	router.post("/generate-image", Entertainment.imageGenerator)
+	router.get("/games", Entertainment.getGames)
 })
 
 router.group("/call", (router) => {

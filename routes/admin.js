@@ -5,21 +5,23 @@ import authController from "../controllers/admin/auth.js"
 import BlogController from "../controllers/admin/blog.js"
 import PackageController from "../controllers/admin/package.js"
 import commentController from "../controllers/admin/comment.js"
-import categoryController from "../controllers/admin/category.js"
+// import categoryController from "../controllers/admin/category.js"
 import serviceController from "../controllers/admin/service.js"
 import FAQController from "../controllers/admin/faq.js"
 import ContactUsController from "../controllers/admin/contactUs.js"
 // import RoleController from "../controllers/admin/role.js"
-import MediaController from "../controllers/admin/media.js"
+// import MediaController from "../controllers/admin/media.js"
 import TicketController from "../controllers/admin/ticket.js"
 import JobRequestController from "../controllers/admin/jobRequest.js"
 import ServiceRequestController from "../controllers/admin/serviceRequest.js"
+import entertainmentController from "../controllers/admin/entertainment.js"
+
 /** Models **/
 import Admin from "../models/Admin.js"
 /** Middlewares **/
-import advancedResults from "../middleware/advancedResults.js"
-import { authenticate, authorize } from "../middleware/authMiddleware.js"
-import imageResizer from "../utils/imageResizer.js"
+// import advancedResults from "../middleware/advancedResults.js"
+import { authenticate } from "../middleware/authMiddleware.js"
+// import imageResizer from "../utils/imageResizer.js"
 import limiter from "../utils/rateLimiting.js"
 import imgUploader from "../utils/imgUploader.js"
 /** Validators **/
@@ -33,10 +35,13 @@ import serviceValidation from "../middleware/validators/services/service.js"
 import FAQValidation from "../middleware/validators/faq/faq.js"
 import contactUsValidation from "../middleware/validators/support/contactUs.js"
 // import roleValidation from "../middleware/validators/roles/role.js"
-import mediaValidation from "../middleware/validators/media/media.js"
+// import mediaValidation from "../middleware/validators/media/media.js"
 import ticketValidation from "../middleware/validators/ticket/ticket.js"
 import jobRequestValidation from "../middleware/validators/requests/jobRequest.js"
 import serviceRequestValidation from "../middleware/validators/requests/serviceRequest.js"
+import entertainmentValidation from "../middleware/validators/entertainment/entertainment.js"
+
+//cloudinary
 import uploadToCloudinary from "../utils/uploadCloudinary.js"
 import authChecker from "../middleware/authorization.js"
 
@@ -62,7 +67,7 @@ router.group("/auth", [limiter], (router) => {
 router.group([authenticate(Admin)], (router) => {
 	// Admin User Routes
 	router.group("/admin-users", (router) => {
-		router.get("/", AdminController.getAdmins)
+		router.get("/", authChecker("Users", "read"), AdminController.getAdmins)
 		router.put(
 			"/:id/change-password",
 			adminValidation.changePassword,
@@ -74,6 +79,7 @@ router.group([authenticate(Admin)], (router) => {
 			imgUploader("image"),
 			uploadToCloudinary,
 			adminValidation.update,
+			authChecker("User", "update"),
 			AdminController.updateAdmin
 		)
 		router.post(
@@ -81,9 +87,14 @@ router.group([authenticate(Admin)], (router) => {
 			imgUploader("image"),
 			uploadToCloudinary,
 			adminValidation.create,
+			authChecker("Users", "create"),
 			AdminController.createAdmin
 		)
-		router.delete("/:id", AdminController.deleteAdmin)
+		router.delete(
+			"/:id",
+			authChecker("Users", "delete"),
+			AdminController.deleteAdmin
+		)
 	})
 
 	// Blog Routes
@@ -98,29 +109,44 @@ router.group([authenticate(Admin)], (router) => {
 			BlogController.createBlog
 		)
 		// router.get("/categories", BlogController.getCategories)
-		router.get("/:id", BlogController.getBlog)
-		router.put("/:id/update-local", BlogController.updateLocal)
+		router.get("/:id", authChecker("Blog", "read"), BlogController.getBlog)
+		router.put(
+			"/:id/update-local",
+			authChecker("Blog", "create"),
+			BlogController.updateLocal
+		)
 		router.put(
 			"/:id",
 			imgUploader("image"),
 			uploadToCloudinary,
 			blogValidation.update,
+			authChecker("Blog", "update"),
 			BlogController.updateBlog
 		)
-		router.delete("/:id", BlogController.deleteBlog)
+		router.delete(
+			"/:id",
+			authChecker("Blog", "delete"),
+			BlogController.deleteBlog
+		)
 
 		// Comments
 		router.group("/:id/comment", (router) => {
 			router.put(
 				"/:commentId",
 				commentValidation.createAndUpdate,
+				authChecker("Blog", "update"),
 				commentController.updateComment
 			)
-			router.delete("/:commentId", commentController.deleteComment)
+			router.delete(
+				"/:commentId",
+				authChecker("Blog", "delete"),
+				commentController.deleteComment
+			)
 			// Reply
 			router.post(
 				"/:commentId/reply",
 				commentValidation.createAndUpdate,
+				authChecker("Blog", "create"),
 				commentController.replyComment
 			)
 		})
@@ -128,84 +154,187 @@ router.group([authenticate(Admin)], (router) => {
 
 	// Package Routes
 	router.group("/packages", (router) => {
-		router.get("/", PackageController.getPackages, advancedResults)
-		router.get("/:id", PackageController.getPackage)
 		router.get(
-			"/categories",
-			PackageController.getCategoriesAndProvinces
+			"/",
+			authChecker("Package", "read"),
+			PackageController.getPackages
 		)
-		router.post("/", packageValidation.create, PackageController.createPackage)
+		router.get(
+			"/:id",
+			authChecker("Package", "read"),
+			PackageController.getPackage
+		)
+		// router.get(
+		// 	"/categories-provinces",
+		// 	PackageController.getCategoriesAndProvinces
+		// )
+		router.post(
+			"/",
+			packageValidation.create,
+			authChecker("Package", "create"),
+			PackageController.createPackage
+		)
 		router.put(
 			"/:id",
 			packageValidation.update,
+			authChecker("Package", "update"),
 			PackageController.updatePackage
 		)
-		router.put("/:id/update-locals", PackageController.updateLocals)
-		router.delete("/:id", PackageController.deletePackage)
-	})
-
-	// Category Routes
-	router.group("/categories", (router) => {
-		router.get("/", categoryController.getCategories, advancedResults)
 		router.put(
 			"/:id/update-locals",
-			categoryValidation.updateLocal,
-			categoryController.updateLocals
-		)
-		router.get("/:id", categoryController.getCategory)
-		router.post(
-			"/",
-			categoryValidation.create,
-			categoryController.createCategory
-		)
-		router.put(
-			"/:id",
-			categoryValidation.update,
-			categoryController.updateCategory
+			authChecker("Package", "update"),
+			PackageController.updateLocals
 		)
 		router.delete(
 			"/:id",
-			categoryValidation.delete,
-			categoryController.deleteCategory
+			authChecker("Package", "delete"),
+			PackageController.deletePackage
 		)
 	})
 
+	// Category Routes
+	// router.group("/categories", (router) => {
+	// 	router.get("/", categoryController.getCategories)
+	// 	router.put(
+	// 		"/:id/update-locals",
+	// 		categoryValidation.updateLocal,
+	// 		categoryController.updateLocals
+	// 	)
+	// 	router.get("/:id", categoryController.getCategory)
+	// 	router.post(
+	// 		"/",
+	// 		categoryValidation.create,
+	// 		categoryController.createCategory
+	// 	)
+	// 	router.put(
+	// 		"/:id",
+	// 		categoryValidation.update,
+	// 		categoryController.updateCategory
+	// 	)
+	// 	router.delete(
+	// 		"/:id",
+	// 		categoryValidation.delete,
+	// 		categoryController.deleteCategory
+	// 	)
+	// })
+
 	// Services Routes
 	router.group("/services", (router) => {
-		router.get("/", serviceController.getServices, advancedResults)
-		router.get("/icon-options", serviceController.getIconOptions)
-		router.get("/:id", serviceController.getService)
-		router.put("/:id/update-locals", serviceController.updateLocals)
-		router.post("/", serviceValidation.create, serviceController.createService)
+		router.get(
+			"/",
+			authChecker("Services", "read"),
+			serviceController.getServices
+		)
+		router.get(
+			"/icon-options",
+			authChecker("Services", "read"),
+			serviceController.getIconOptions
+		)
+		router.get(
+			"/:id",
+			authChecker("Services", "read"),
+			serviceController.getService
+		)
+		router.put(
+			"/:id/update-locals",
+			authChecker("Services", "update"),
+			serviceController.updateLocals
+		)
+		router.post(
+			"/",
+			serviceValidation.create,
+			authChecker("Services", "create"),
+			serviceController.createService
+		)
 		router.put(
 			"/:id",
 			serviceValidation.update,
+			authChecker("Services", "update"),
 			serviceController.updateService
 		)
-		router.delete("/:id", serviceController.deleteService)
+		router.delete(
+			"/:id",
+			authChecker("Services", "delete"),
+			serviceController.deleteService
+		)
 	})
 
 	//FAQ Routes
 	router.group("/faq", (router) => {
-		router.get("/", FAQController.getFAQs)
-		router.get("/categories", FAQController.getCategories)
-		router.get("/:id", FAQController.getFaq)
+		router.get("/", authChecker("Faq", "read"), FAQController.getFAQs)
+		router.get(
+			"/categories",
+			authChecker("Faq", "read"),
+			FAQController.getCategories
+		)
+		router.get("/:id", authChecker("Faq", "read"), FAQController.getFaq)
 		router.put(
 			"/:id/update-locals",
 			FAQValidation.updateLocal,
+			authChecker("Faq", "update"),
 			FAQController.updateLocals
 		)
-		router.post("/", FAQValidation.create, FAQController.createFAQ)
-		router.put("/:id", FAQValidation.update, FAQController.updateFAQ)
-		router.delete("/:id", FAQController.deleteFAQ)
+		router.post(
+			"/",
+			FAQValidation.create,
+			authChecker("Faq", "create"),
+			FAQController.createFAQ
+		)
+		router.put(
+			"/:id",
+			FAQValidation.update,
+			authChecker("Faq", "update"),
+			FAQController.updateFAQ
+		)
+		router.delete("/:id", authChecker("Faq", "delete"), FAQController.deleteFAQ)
+	})
+
+	//Entertainments Routes
+	router.group("/entertainment", (router) => {
+		router.get(
+			"/",
+			authChecker("Entertainment", "read"),
+			entertainmentController.getEntertainments
+		)
+		router.get(
+			"/:id",
+			authChecker("Entertainment", "read"),
+			entertainmentController.getEntertainment
+		)
+		router.post(
+			"/",
+			imgUploader("image"),
+			uploadToCloudinary,
+			entertainmentValidation.create,
+			authChecker("entertainment", "create"),
+			entertainmentController.createEntertainment
+		)
+		router.put(
+			"/:id",
+			imgUploader("image"),
+			uploadToCloudinary,
+			entertainmentValidation.update,
+			authChecker("entertainment", "update"),
+			entertainmentController.updateEntertainment
+		)
+		router.delete(
+			"/:id",
+			authChecker("entertainment", "delete"),
+			entertainmentController.deleteEntertainment
+		)
 	})
 
 	//Contact Routes
 	router.group("/contact-us", (router) => {
-		router.get("/", ContactUsController.getContacts, advancedResults)
+		router.get(
+			"/",
+			authChecker("Contact-us", "read"),
+			ContactUsController.getContacts
+		)
 		router.put(
 			"/:id/change-status",
 			contactUsValidation.changeStatus,
+			authChecker("Contact-us", "update"),
 			ContactUsController.changeStatus
 		)
 
@@ -225,35 +354,59 @@ router.group([authenticate(Admin)], (router) => {
 
 	// Ticket Routes
 	router.group("/ticket", (router) => {
-		router.get("/:id", TicketController.getMessages)
-		router.get("/", TicketController.getChats, advancedResults)
+		router.get(
+			"/:id",
+			authChecker("Ticket", "read"),
+			TicketController.getMessages
+		)
+		router.get("/", authChecker("Ticket", "read"), TicketController.getChats)
 		router.post(
 			"/:id",
 			imgUploader("image"),
 			ticketValidation.createMessage,
+			authChecker("Ticket", "create"),
 			TicketController.createMessage
 		)
-		router.put("/:id/close-chat", TicketController.closeChat)
+		router.put(
+			"/:id/close-chat",
+			authChecker("Ticket", "update"),
+			TicketController.closeChat
+		)
 	})
 
 	// Requests
 	router.group("/request", (router) => {
-		router.get("/job", JobRequestController.getRequests)
-		router.get("/job/:id", JobRequestController.getRequest)
+		router.get(
+			"/job",
+			authChecker("Job", "read"),
+			JobRequestController.getRequests
+		)
+		router.get(
+			"/job/:id",
+			authChecker("Job", "read"),
+			JobRequestController.getRequest
+		)
 		router.put(
 			"/job/:id",
 			jobRequestValidation.changeState,
+			authChecker("Job", "update"),
 			JobRequestController.changeState
 		)
 
 		router.get(
 			"/service",
-			ServiceRequestController.getRequests,
+			authChecker("Services", "read"),
+			ServiceRequestController.getRequests
 		)
-		router.get("/service/:id", ServiceRequestController.getRequest)
+		router.get(
+			"/service/:id",
+			authChecker("Services", "read"),
+			ServiceRequestController.getRequest
+		)
 		router.put(
 			"/service/:id",
 			serviceRequestValidation.changeState,
+			authChecker("Services", "update"),
 			ServiceRequestController.changeState
 		)
 	})

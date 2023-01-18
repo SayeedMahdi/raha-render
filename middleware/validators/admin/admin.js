@@ -39,22 +39,7 @@ const createSchema = checkSchema({
 			},
 		},
 	},
-	subject: {
-		escape: true,
-		trim: true,
-		isEmpty: {
-			negated: true,
-			errorMessage: (_, { req }) =>
-				req.t("required", { ns: "validations", key: req.t("subject") }),
-		},
-	},
-	ability: {
-		isEmpty: {
-			negated: true,
-			errorMessage: (_, { req }) =>
-				req.t("required", { ns: "validations", key: req.t("ability") }),
-		},
-	},
+
 	username: {
 		escape: true,
 		trim: true,
@@ -64,17 +49,12 @@ const createSchema = checkSchema({
 				req.t("required", { ns: "validations", key: req.t("username") }),
 		},
 		custom: {
-			options: async (email, { req }) => {
-				const findEmail = await Admin.findOne({ email })
-				if (findEmail) {
-					return Promise.reject(
-						req.t("already-exists", {
-							ns: "validations",
-							key: req.t("username"),
-						})
-					)
-				}
-				return Promise.resolve()
+			errorMessage: (_, { req }) =>
+				req.t("already-exists", { ns: "validations", key: req.t("username") }),
+			options: (username, { req }) => {
+				return Admin.count({ username, _id: { $ne: req.params.id } }).then(
+					(result) => result !== 0 && Promise.reject()
+				)
 			},
 		},
 	},
@@ -86,10 +66,10 @@ const createSchema = checkSchema({
 			errorMessage: (_, { req }) =>
 				req.t("required", { ns: "validations", key: req.t("password") }),
 		},
-		isStrongPassword: {
-			errorMessage: (_, { req }) =>
-				req.t("strong-password", { ns: "validations" }),
-		},
+		// isStrongPassword: {
+		// 	errorMessage: (_, { req }) =>
+		// 		req.t("strong-password", { ns: "validations" }),
+		// },
 	},
 	confirmPassword: {
 		escape: true,
@@ -113,6 +93,21 @@ const createSchema = checkSchema({
 			) => confirm === password && Promise.resolve(),
 			errorMessage: (_, { req }) =>
 				req.t("confirm-password", { ns: "validations" }),
+		},
+	},
+	role: {
+		custom: {
+			options: (value, { req }) => {
+				if (
+					(req.isSuperAdmin === undefined || req.isSuperAdmin === false) &&
+					(value === null || value === undefined)
+				) {
+					return Promise.reject(
+						req.t("required", { ns: "validations", key: req.t("role") })
+					)
+				}
+				return Promise.resolve()
+			},
 		},
 	},
 })
@@ -160,15 +155,13 @@ const updateSchema = checkSchema({
 			errorMessage: (_, { req }) =>
 				req.t("already-exists", { ns: "validations", key: req.t("username") }),
 			options: (username, { req }) => {
-				return Admin.count({ username, _id: { $ne: req.params.id } })
-					.accessibleBy(req.user.ability)
-					.then((result) => result !== 0 && Promise.reject())
+				return Admin.count({ username, _id: { $ne: req.params.id } }).then(
+					(result) => result !== 0 && Promise.reject()
+				)
 			},
 		},
 	},
 	role: {
-		escape: true,
-		trim: true,
 		custom: {
 			options: (value, { req }) => {
 				if (
@@ -177,11 +170,6 @@ const updateSchema = checkSchema({
 				) {
 					return Promise.reject(
 						req.t("required", { ns: "validations", key: req.t("role") })
-					)
-				}
-				if (!mongoose.Types.ObjectId.isValid(value)) {
-					return Promise.reject((_, { req }) =>
-						req.t("invalid", { ns: "validations", key: req.t("role") })
 					)
 				}
 				return Promise.resolve()
@@ -231,10 +219,10 @@ const changePasswordSchema = checkSchema({
 			errorMessage: (_, { req }) =>
 				req.t("required", { ns: "validations", key: req.t("password") }),
 		},
-		isStrongPassword: {
-			errorMessage: (_, { req }) =>
-				req.t("provide", { ns: "validations", key: req.t("strong-password") }),
-		},
+		// isStrongPassword: {
+		// 	errorMessage: (_, { req }) =>
+		// 		req.t("provide", { ns: "validations", key: req.t("strong-password") }),
+		// },
 	},
 	confirmPassword: {
 		escape: true,

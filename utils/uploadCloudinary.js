@@ -8,7 +8,6 @@ const uploadToCloudinary = async (req, res, next) => {
 			const uploadResponse = await cloudinary.uploader.upload(req?.file?.path, {
 				upload_preset: "raha_setups",
 			})
-
 			req.body.cloudinary = uploadResponse
 		}
 	} catch (err) {
