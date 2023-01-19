@@ -55,7 +55,8 @@ const AdminController = {
 		const role = {
 			[body?.role]: body?.ability,
 		}
-		body.role = !body.isSuperAdmin ? role : { superAdmin: 'All' }
+		body.role = body.isSuperAdmin === "false" ? role : { superAdmin: 'All' }
+		body.canChat = body.isSuperAdmin === "true" ? true : body.canChat
 
 		const admin = await Admin.create(body)
 
@@ -76,7 +77,8 @@ const AdminController = {
 			const role = {
 				[body?.role]: body?.ability,
 			}
-			body.role = !body.isSuperAdmin ? role : { superAdmin: 'All' }
+			body.role = body.isSuperAdmin === "false" ? role : { superAdmin: 'All' }
+			body.canChat = body.isSuperAdmin === "true" ? true : body.canChat
 
 			const admin = await Admin.findOneAndUpdate({ _id: id }, body, {
 				new: true,

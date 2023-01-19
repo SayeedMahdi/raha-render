@@ -15,6 +15,7 @@ import TicketController from "../controllers/admin/ticket.js"
 import JobRequestController from "../controllers/admin/jobRequest.js"
 import ServiceRequestController from "../controllers/admin/serviceRequest.js"
 import entertainmentController from "../controllers/admin/entertainment.js"
+import canChat from "../middleware/canChat.js"
 
 /** Models **/
 import Admin from "../models/Admin.js"
@@ -355,40 +356,34 @@ router.group([authenticate(Admin)], (router) => {
 
 	// Ticket Routes
 	router.group("/ticket", (router) => {
-		router.get(
-			"/:id",
-			// authChecker("chat", "read"),
-			TicketController.getMessages
-		)
-		router.get("/",
-			//  authChecker("chat", "read"),
-			TicketController.getChats)
+		router.get("/:id", canChat, TicketController.getMessages)
+		router.get("/", canChat, TicketController.getChats)
 		router.post(
 			"/:id",
 			multiFileUploader("attachments"),
 			uploadToCloudinary,
 			ticketValidation.createMessage,
-			// authChecker("chat", "create"),
+			canChat,
 			TicketController.createMessage
 		)
 		router.put(
 			"/:id/message/:msgId",
 			multiFileUploader("attachments"),
 			uploadToCloudinary,
-			// authChecker("chat", "update"),
+			canChat,
 			TicketController.updateMessage
 		)
-		router.put(
-			"/:id/close-chat",
-			// authChecker("chat", "update"),
-			TicketController.closeChat
+		router.put("/:id/close-chat", canChat, TicketController.closeChat)
+		router.post(
+			"/:id/message/:msgId/reply",
+			canChat,
+			TicketController.replyMessage
 		)
-		router.post("/:id/message/:msgId/reply",
-			// authChecker("chat", "create"), 
-			TicketController.replyMessage)
-		router.delete("/:id/message/:msgId",
-			// authChecker("chat", "delete"),
-			TicketController.deleteMessage)
+		router.delete(
+			"/:id/message/:msgId",
+			canChat,
+			TicketController.deleteMessage
+		)
 	})
 
 	// Requests

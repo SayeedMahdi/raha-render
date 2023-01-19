@@ -5,7 +5,6 @@ import sendMail from "../../utils/sendMail.js"
 import mongoose from "mongoose"
 import jwt from "jsonwebtoken"
 import ResetPasswordTemplate from "../../views/reset-password.js"
-import { log } from "console"
 import speakeasy from "speakeasy"
 
 // @desc    Auth admin & get token
@@ -70,8 +69,10 @@ const login = asyncHandler(async (req, res, next) => {
 			publicId: admin.publicId,
 			gender: admin.gender,
 			superAdmin: admin.isSuperAdmin,
-			// role: admin?.role, 
 			isActive: admin.isActive,
+			canChat: admin.canChat,
+			role: Object.keys(admin.role).join(''),
+			ability: Object.values(admin.role).join(''),
 			accessToken
 		});
 
@@ -198,7 +199,9 @@ const refreshToken = (req, res) => {
 				publicId: foundUser.publicId,
 				gender: foundUser.gender,
 				superAdmin: foundUser.isSuperAdmin,
-				role: foundUser.role,
+				canChat: foundUser.canChat,
+				role: Object.keys(foundUser.role).join(''),
+				ability: Object.values(foundUser.role).join(''),
 				isActive: foundUser.isActive,
 				accessToken,
 			})

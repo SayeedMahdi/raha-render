@@ -71,6 +71,10 @@ const AdminSchema = new mongoose.Schema(
 			type: Boolean,
 			default: true,
 		},
+		canChat: {
+			type: Boolean,
+			default: false,
+		},
 		creatorId: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: "Admin",
