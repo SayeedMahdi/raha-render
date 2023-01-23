@@ -54,11 +54,10 @@ const createMessage = asyncHandler(
 			res.status(404)
 			throw new Error(t("not-found", { ns: "validations", key: t("chat") }))
 		}
-		console.log(body, file)
 
 		const newMessage = {
 			user: user.id,
-			userType: "Client",
+			userType: "Admin",
 			image: body.cloudinary?.secure_url || null,
 			publicId: body?.cloudinary?.public_id || undefined,
 			text: body?.text,
@@ -69,6 +68,7 @@ const createMessage = asyncHandler(
 
 		const newTicket = await ticket.save()
 		await newTicket.populate("messages.user", "fullName image publicId")
+		await newTicket.populate("client_id", "fullName image publicId")
 
 		res.status(201).json(newTicket.messages.pop())
 	}
