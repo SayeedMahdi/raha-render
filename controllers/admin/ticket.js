@@ -54,7 +54,7 @@ const createMessage = asyncHandler(
 			res.status(404)
 			throw new Error(t("not-found", { ns: "validations", key: t("chat") }))
 		}
-
+		console.log(body.text, file);
 		const newMessage = {
 			user: user.id,
 			userType: "Admin",
@@ -79,7 +79,7 @@ const createMessage = asyncHandler(
 // @access  Private
 const updateMessage = asyncHandler(
 	async ({ file, body, params, t }, res, next) => {
-		if (!mongoose.Types.ObjectId.isValid(params.msgId)) return next()
+		// if (!mongoose.Types.ObjectId.isValid(params.msgId)) return next()
 
 		let ticket = await Ticket.findOne({ _id: params.id })
 
@@ -129,9 +129,9 @@ const updateMessage = asyncHandler(
 // @access  private
 const closeChat = asyncHandler(
 	async ({ user, params: { id }, t }, res, next) => {
-		console.log(user?.role);
 		const role = user?.role
 		let ticket
+
 		user.isSuperAdmin === true
 			? (ticket = await Ticket.findOneAndUpdate(
 				{ _id: id },

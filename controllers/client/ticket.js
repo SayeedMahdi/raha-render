@@ -59,8 +59,7 @@ const createMessage = asyncHandler(
 		if (!ticket) {
 			res.status(404)
 			throw new Error(t("not-found", { ns: "validations", key: t("chat") }))
-		}
-		console.log(body, file)
+		} 
 
 		const newMessage = {
 			user: user.id,

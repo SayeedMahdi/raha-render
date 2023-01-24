@@ -362,7 +362,7 @@ router.group([authenticate(Admin)], (router) => {
 			"/:id",
 			multiFileUploader("attachments"),
 			uploadToCloudinary,
-			ticketValidation.createMessage,
+			// ticketValidation.createMessage,
 			canChat,
 			TicketController.createMessage
 		)

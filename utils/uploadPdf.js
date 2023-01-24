@@ -24,7 +24,7 @@ const pdf = async (req, res) => {
                 pdfUrl: result.url,
                 pdfId: result.id
             }
-            console.log('pdf results--', pdfFile.pdfUrl)
+            // console.log('pdf results--', pdfFile.pdfUrl)
         })
         pdfDoc.end();
         return
