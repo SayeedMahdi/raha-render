@@ -66,7 +66,8 @@ router.group("/auth", [limiter], (router) => {
 	router.post("/logout", authenticate(Admin), authController.logout)
 })
 
-router.group([authenticate(Admin)], (router) => {
+// router.group([authenticate(Admin)], (router) => {
+router.group((router) => {
 	// Admin User Routes
 	router.group("/admin-users", (router) => {
 		router.get("/", authChecker("Users", "read"), AdminController.getAdmins)

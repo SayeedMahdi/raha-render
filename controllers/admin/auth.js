@@ -49,12 +49,12 @@ const login = asyncHandler(async (req, res, next) => {
 	const options = {
 		// httpOnly: true, //accessible only by web server 
 		// secure: process.env.NODE_ENV === "production", //https 
-		// SameSite: 'None', //cross-site cookie  
+		// SameSite: 'Strict', //cross-site cookie  
 		// maxAge: 7 * 24 * 60 * 60 * 1000 //cookie expiry: set to match rT
 
 		httpOnly: true, //accessible only by web server 
 		secure: process.env.NODE_ENV === "production", //https
-		sameSite: 'None', //cross-site cookie 
+		sameSite: 'Strict', //cross-site cookie 
 		maxAge: 7 * 24 * 60 * 60 * 1000 //cookie expiry: set to match rT
 	};
 
@@ -88,7 +88,7 @@ const logout = (req, res) => {
 	res.clearCookie('admin_token', {
 		httpOnly: true, //accessible only by web server 
 		secure: process.env.NODE_ENV === "production", //https
-		sameSite: 'None', //cross-site cookie  
+		sameSite: 'Strict', //cross-site cookie  
 	})
 
 	res.json({ message: "Cookie cleared" })
@@ -184,7 +184,7 @@ const refreshToken = (req, res) => {
 		async (err, decoded) => {
 			if (err) return res.status(403).json({ message: "Forbidden" })
 
-			const foundUser = await Admin.findOne({ id: decoded.id }).exec()
+			const foundUser = await Admin.findOne({ _id: decoded.id }).exec()
 
 			if (!foundUser) return res.status(401).json({ message: "Unauthorized" })
 

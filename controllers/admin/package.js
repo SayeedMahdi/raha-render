@@ -112,7 +112,7 @@ const PackageController = {
         type: body['bandwidth-type'],
         amount: body.bandwidth,
       },
-      creatorId: user.id
+      creatorId: user?.id
     });
 
     res.status(201).json(newPackage);

@@ -38,23 +38,20 @@ const chat = (io) => {
     ];
 
     io.on("connection", (socket) => {
-
         socket.on("connect_error", (err) => {
             console.log(`connect_error due to ${err.message}`);
         });
 
         socket.on("setup", ({ userId, room }) => {
             socket.join(`${userId}${room}`);
-            console.log("joined the room", `${userId}${room}`);
             socket.emit("connected");
         });
-
 
         socket.on("new-user-add", (userId, socketId, role) => {
             if (!activeUsers.some((user) => user.userId === userId)) {
                 activeUsers.push({ userId, socketId, busy: false, chatCount: 0, role });
             }
-            console.log("Added: ", activeUsers);
+
             io.emit("get-users", activeUsers);
         });
 
@@ -89,11 +86,11 @@ const chat = (io) => {
                     user?.userId === mostBusyUser?.userId
                         ? currUser = user && { ...user, busy: true, chatCount: ++mostBusyUser.chatCount } : user)
             }
-            console.log("Admin: ID: ", currUser?.socketId);
-            if (currUser && data.subject && data.description && data.messages.length === 0) {
-                console.log("Admin: ", currUser?.socketId);
+
+            if (currUser && data.subject && data.messages.length === 0) {
+                // console.log("Admin: ", currUser?.socketId);
                 // console.log("in Current Usr: ", currUser.socketId, socket.id)
-                io.to(currUser?.socketId).emit("chat-lists", data, userId);
+                io.to(currUser?.socketId).emit("chat-lists", data);
                 // socket.to(currUser.userId).emit("receive-chat", data, wsId);
                 // socket.in(room).emit("chat-lists", data);
                 // io.to(currUser.socketId).emit("receive-message", data, wsId);
@@ -102,6 +99,7 @@ const chat = (io) => {
         });
 
         socket.on("send-message", (data, { userId, room }) => {
+            console.log("send-message", data.text, `${userId}${room}`);
             socket.in(`${userId}${room}`).emit("receive-message", data);
         })
 
@@ -109,13 +107,12 @@ const chat = (io) => {
         socket.on("stop-typing", ({ userId, room }) => socket.to(`${userId}${room}`).emit("stop-type"));
 
         socket.on("close-chat", ({ userId, room }) => {
-            console.log(`${userId}${room}`)
             io.in(`${userId}${room}`).emit("close-chat-box")
         });
 
         socket.on("disconnect", () => {
             console.log("left", socket.id);
-            // activeUsers = activeUsers.filter((user) => user.socketId !== socket.id);
+            activeUsers = activeUsers.filter((user) => user.socketId !== socket.id);
             io.emit("get-users", activeUsers);
         });
     });

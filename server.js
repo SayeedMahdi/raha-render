@@ -33,14 +33,9 @@ app.use(cors(corsOptions))
 
 // Set security headers
 app.use(helmet())
-// app.use(
-// 	helmet({
-// 		crossOriginResourcePolicy: false,
-// 	})
-// )
 
 //  Initialize Socket.io
-const io = new Server(server, { cors: { origin: "*" } })
+const io = new Server(server, { cors: corsOptions })
 chat(io)
 
 // Multil-language

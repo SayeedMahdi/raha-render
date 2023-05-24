@@ -34,6 +34,7 @@ import multiFileUploader from "../utils/multiFileUploader.js"
 import Client from "../models/Client.js"
 import JobRequestController from "../controllers/client/jobRequest.js"
 import uploadToCloudinary from "../utils/uploadCloudinary.js"
+import { requestService } from "../controllers/client/speedTest.js"
 
 const router = new Router()
 
@@ -202,9 +203,8 @@ router.group("/entertainment", (router) => {
 	router.get("/games", Entertainment.getGames)
 })
 
-router.group("/call", (router) => {
-	router.get("/", callCenter.makeCall)
-	router.post("/", callCenter.getCalls)
+router.group("/speed", (router) => {
+	router.get("/", requestService)
 })
 
 export default router.init()
