@@ -6,6 +6,7 @@ import BlogController from "../controllers/client/blog.js"
 import CommentController from "../controllers/client/comment.js"
 import ServiceController from "../controllers/client/service.js"
 import FAQController from "../controllers/client/faq.js"
+import ProvinceController from "../controllers/client/province.js"
 import packageController from "../controllers/client/package.js"
 import ContactUsController from "../controllers/client/contactUs.js"
 import TicketController from "../controllers/client/ticket.js"
@@ -138,6 +139,10 @@ router.group("blogs", (router) => {
 router.group("/packages", (router) => {
 	router.get("/", packageController.getPackages)
 	router.get(
+		"/categories",
+		packageController.getPackageCategory
+	)
+	router.get(
 		"/categories/provinces",
 		packageController.getCategoriesAndProvinces
 	)
@@ -167,6 +172,9 @@ router.post(
 	ServiceController.requestService
 )
 router.get("/faq", FAQController.getFAQs)
+
+router.get("/provinces", ProvinceController.getProvinces)
+
 router.post(
 	"contact-us",
 	contactUsValidation.create,

@@ -1,5 +1,6 @@
 import asyncHandler from "express-async-handler";
 import Package from "../../models/Package.js";
+import Category from "../../models/Category.js";
 import mongoose from "mongoose";
 
 const PackageController = {
@@ -7,11 +8,34 @@ const PackageController = {
   // @route   GET /api/v1/packages
   // @access  public
   getPackages: asyncHandler(async (req, res, next) => {
-    const province = req.query.province;
+    const { province, category } = req.query;
 
-    const packages = await Package.find({ province }).populate('category', 'name slug');
+    const packages = await Package.aggregate([
+      {
+        $match: {
+          province: { $eq: mongoose.Types.ObjectId(province) },
+          category: { $eq: mongoose.Types.ObjectId(category) },
+        },
+      },
+      {
+        $lookup: {
+          from: 'provinces',
+          localField: 'province',
+          foreignField: '_id',
+          as: 'province',
+        },
+      },
+      {
+        $lookup: {
+          from: 'categories',
+          localField: 'category',
+          foreignField: '_id',
+          as: 'category',
+        },
+      }
+    ])
 
-    res.json(packages);
+    res.status(200).json({ lenght: packages.length, packages });
   }),
 
   // @desc      Get single package
@@ -69,6 +93,12 @@ const PackageController = {
       }
     ])
     res.json(result);
+  }),
+
+  getPackageCategory: asyncHandler(async (req, res) => {
+    const categories = await Category.find({ type: 'package' }, 'name createdAt')
+
+    res.status(200).json(categories)
   })
 }
 

@@ -1,93 +1,74 @@
 import mongoose from "mongoose";
-import { accessibleRecordsPlugin } from "@casl/mongoose";
 import softDelete from "mongoose-delete";
 
 const PackageSchema = new mongoose.Schema(
   {
-    name: {
-      fa: String,
-      en: String,
-      ps: String,
-    },
-    slug: {
-      type: String,
-      required: true,
-      unique: true
-    },
+    name: String,
     type: {
       type: String,
-      enum: ["limited", "unlimited"],
+      enum: ["dedicated", "shared"],
       required: true,
+    },
+    bandwidthType: {
+      type: String,
+      enum: ["limited", "unlimited"],
     },
     bandwidth: {
-      type: {
-        type: String,
-        enum: ["dedicated", "shared"],
-      },
-      amount: Number
+      type: Number,
+    },
+    upToBandwidth: {
+      type: Number,
     },
     price: {
-      main: {
-        type: Number,
-        required: true,
-      },
-      plus: Number
-    },
-    province: {
-      type: String,
+      type: Number,
       required: true,
     },
-    duration: {
+    plusPrice: {
+      type: Number,
+    },
+    lifeSpan: {
       type: Number,
       required: true,
     },
     priority: {
       type: Number,
       required: true,
-      default: 5,
+      default: 1,
     },
-    dailySpeed: String,
-    nightlySpeed: String,
-    description: {
-      fa: String,
-      ps: String,
-      en: String,
-    },
-    image: {
-      type: Object,
-      default: null,
-    },
-    marker: {
-      fa: {
-        type: String,
-        default: null
-      },
-      ps: {
-        type: String,
-        default: null
-      },
-      en: {
-        type: String,
-        default: null
-      }
-    },
-    properties: [{
-      type: {
-        fa: String,
-        ps: String,
-        en: String,
-        _id: false
-      }
-    }],
-    isPlus: mongoose.Schema.Types.Boolean,
-    isHybrid: mongoose.Schema.Types.Boolean,
     category: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: "Category",
     },
+    province: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "Province",
+    },
     capacity: {
-      type: mongoose.Schema.Types.Number,
+      type: Number,
+    },
+    freeTimeInterval: {
+      from: String,
+      to: String
+    },
+    dailyVolume: Number,
+    speedAfterDailyVolume: Number,
+
+    nightProps: {           // Free nightly speed
+      bandwidth: Number,
+      from: String,
+      to: String
+    },
+    dailySpeed: {
+      bandwidth: Number,
+      from: String,
+      to: String
+    },
+    nightlySpeed: {
+      bandwidth: Number,
+      from: String,
+      to: String
     },
     creatorId: {
       type: mongoose.Schema.Types.ObjectId,
@@ -105,7 +86,7 @@ const PackageSchema = new mongoose.Schema(
 PackageSchema.index({
   "name.*": "text",
 });
-PackageSchema.plugin(accessibleRecordsPlugin);
+
 PackageSchema.plugin(softDelete, {
   deletedBy: true,
   deletedAt: true,
@@ -115,5 +96,3 @@ PackageSchema.plugin(softDelete, {
 const Package = mongoose.model("Package", PackageSchema);
 
 export default Package;
-
-

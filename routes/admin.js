@@ -8,6 +8,7 @@ import commentController from "../controllers/admin/comment.js"
 // import categoryController from "../controllers/admin/category.js"
 import serviceController from "../controllers/admin/service.js"
 import FAQController from "../controllers/admin/faq.js"
+import ProvinceController from "../controllers/admin/province.js"
 import ContactUsController from "../controllers/admin/contactUs.js"
 // import RoleController from "../controllers/admin/role.js"
 // import MediaController from "../controllers/admin/media.js"
@@ -173,8 +174,8 @@ router.group((router) => {
 		// )
 		router.post(
 			"/",
-			packageValidation.create,
-			authChecker("Package", "create"),
+			// packageValidation.create,
+			// authChecker("Package", "create"),
 			PackageController.createPackage
 		)
 		router.put(
@@ -290,6 +291,34 @@ router.group((router) => {
 			FAQController.updateFAQ
 		)
 		router.delete("/:id", authChecker("Faq", "delete"), FAQController.deleteFAQ)
+	})
+
+	//Province Routes
+	router.group("/province", (router) => {
+		router.get("/",
+			//  authChecker("Faq", "read"), 
+			ProvinceController.getProvinces)
+		router.put(
+			"/:id/update-locals",
+			// FAQValidation.updateLocal,
+			authChecker("Faq", "update"),
+			ProvinceController.updateLocals
+		)
+		router.post(
+			"/",
+			// FAQValidation.create,
+			// authChecker("Faq", "create"),
+			ProvinceController.createProvince
+		)
+		router.put(
+			"/:id",
+			// FAQValidation.update,
+			// authChecker("Faq", "update"),
+			ProvinceController.updateProvince
+		)
+		router.delete("/:id",
+			// authChecker("Faq", "delete"), 
+			ProvinceController.deleteProvince)
 	})
 
 	//Entertainments Routes

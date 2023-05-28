@@ -82,38 +82,13 @@ const PackageController = {
   // @access  private && superAdmin
   createPackage: asyncHandler(async ({ body, user }, res) => {
 
-    const newPackage = await Package.create({
-      name: {
-        fa: body.name
-      },
-      type: body.type,
-      description: {
-        fa: body.description
-      },
-      province: body.province,
-      marker: {
-        fa: body.marker
-      },
-      dailySpeed: body.dailySpeed,
-      nightlySpeed: body?.nightlySpeed,
-      priority: body.priority,
-      duration: body.duration,
-      category: body.category,
-      slug: body.slug,
-      properties: body.properties?.map(prop => ({ fa: prop })),
-      isPlus: body["is-package-plus"],
-      isHybrid: body["is-package-hybrid"],
-      capacity: body["capacity"],
-      price: {
-        main: body.price,
-        plus: body['plus-price']
-      },
-      bandwidth: {
-        type: body['bandwidth-type'],
-        amount: body.bandwidth,
-      },
-      creatorId: user?.id
-    });
+    body.creatorId = user?.id
+    body.price = Number(body?.price)
+    body.lifeSpan = Number(body?.lifeSpan)
+    body.dailyVolume = Number(body?.dailyVolume ?? 0)
+    body.upToBandwidth = Number(body.upToBandwidth ?? 0)
+
+    let newPackage = await Package.create(body)
 
     res.status(201).json(newPackage);
   }),

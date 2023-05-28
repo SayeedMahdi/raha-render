@@ -1,0 +1,46 @@
+"name": {
+  "fa": "Finance FAQ"
+},
+"_id": "64562d2ae1c072126075aba5",
+"slug": "faq",
+"type": "faq",
+"deleted": false,
+"createdAt": "2023-05-06T10:34:18.400Z",
+"updatedAt": "2023-05-06T10:34:18.400Z",
+"__v": 0
+},
+{
+"name": {
+  "fa": "Q&A Final News"
+},
+"_id": "64562e46459dc04551a773e5",
+"slug": "news",
+"type": "faq",
+"deleted": false,
+"createdAt": "2023-05-06T10:39:02.754Z",
+"updatedAt": "2023-05-06T10:39:02.754Z",
+"__v": 0
+},
+{
+"name": {
+  "fa": "Sales FAQ"
+},
+"_id": "64562e72459dc04551a773e9",
+"slug": "sales",
+"type": "faq",
+"deleted": false,
+"createdAt": "2023-05-06T10:39:46.661Z",
+"updatedAt": "2023-05-06T10:39:46.661Z",
+"__v": 0
+},
+{
+"name": {
+  "fa": "Technical FAQ"
+},
+"_id": "64562e9a459dc04551a773ed",
+"slug": "tech",
+"type": "faq",
+"deleted": false,
+"createdAt": "2023-05-06T10:40:26.259Z",
+"updatedAt": "2023-05-06T10:40:26.259Z",
+"__v": 0
